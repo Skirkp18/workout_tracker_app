@@ -2,8 +2,8 @@ const express = require("express");
 const mongojs = require("mongojs");
 const logger = require("morgan");
 
-const databaseUrl = "warmup";
-const collections = ["books"];
+const databaseUrl = "workoutTracker";
+const collections = ["exercise", "workout", "stats"];
 const db = mongojs(databaseUrl, collections);
 
 const app = express();
