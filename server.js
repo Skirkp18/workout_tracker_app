@@ -4,6 +4,8 @@ const logger = require("morgan");
 
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 app.use(logger("dev"));
 
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +36,6 @@ app.get("/exercise", (res, req) => {
 // ======================================================================
 
 // Listen on port 3000
-app.listen(3000, () => {
-  console.log(`http://localhost:${3000}`);
+app.listen(PORT, () => {
+  console.log(`http://localhost:${PORT}`);
 });
