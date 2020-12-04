@@ -1,54 +1,39 @@
 const express = require("express");
-const mongojs = require("mongojs");
+const mongoose = require('mongoose');
 const logger = require("morgan");
-
-const databaseUrl = "workoutTracker";
-const collections = ["exercise", "workout", "stats"];
-const db = mongojs(databaseUrl, collections);
 
 const app = express();
 
 app.use(logger("dev"));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use(express.static("public"));
 
-db.on("error", error => {
-    console.log("Database Error:", error);
-  });
 
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/custommethoddb", { 
+  useNewUrlParser: true,
+  useFindAndModify: false 
+});
 
 
 
 //                       PLACE ROUTES HERE!
 // ===================================================================
 
+app.use(require("./routes/api-routes"));
+app.use(require("./routes/html-routes"));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.get("/exercise", (res, req) => {
+  res.sendFile(path.join(__dirname, "public/exercise.html"));
+});
 
 
 // ======================================================================
 
-
-  app.listen(3000, () => {
-    console.log("App running on port 3000!");
-  });
-  
+// Listen on port 3000
+app.listen(3000, () => {
+  console.log(`http://localhost:${3000}`);
+});
