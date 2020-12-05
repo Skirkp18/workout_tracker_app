@@ -1,10 +1,10 @@
 const express = require("express");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const logger = require("morgan");
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(logger("dev"));
 
@@ -15,9 +15,11 @@ app.use(express.static("public"));
 
 
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/custommethoddb", { 
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutDB", { 
   useNewUrlParser: true,
-  useFindAndModify: false 
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
 });
 
 
@@ -35,7 +37,7 @@ app.get("/exercise", (res, req) => {
 
 // ======================================================================
 
-// Listen on port 3000
+// Listen on port 3001
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
 });
