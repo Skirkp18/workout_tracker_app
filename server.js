@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
-
+// connect to mongo atlas db first then try local mongodb
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout_db", { 
   useNewUrlParser: true,
   useUnifiedTopology: true,
